@@ -10,8 +10,8 @@ public class DrawPanel extends JPanel implements ActionListener {
     private final int PANEL_HEIGHT;
     private final int TIMER_DELAY;
     private Timer timer;
-    private int ticksFromStart = 0;
-    private int maxTicks = 1000; ///////////////
+    private int ticksFromStart = 100;
+    private int maxTicks = 100;
     private boolean isOwlJump = true;
 
     private Owl owl;
@@ -23,13 +23,13 @@ public class DrawPanel extends JPanel implements ActionListener {
         timer = new Timer(timerDelay, this);
         timer.start();
 
-        this.owl = new Owl(200, 200, 300, 300, Color.MAGENTA, 0);
+        this.owl = new Owl(200, 200, 400, 500, new Color(128, 0, 128), new Color(160, 32, 160), new Color(100, 0, 100), 0);
     }
 
     @Override
     public void paint(final Graphics gr) {
         super.paint(gr);
-        //owl.setX(ticksFromStart);
+        owl.setY(200 + ticksFromStart);
         owl.draw(gr);
     }
 
@@ -38,14 +38,14 @@ public class DrawPanel extends JPanel implements ActionListener {
         if (e.getSource() == timer) {
             repaint();
             if (isOwlJump) {
-                ++ticksFromStart;
-                if (maxTicks == ticksFromStart) {
+                ticksFromStart -= 5;
+                if (ticksFromStart == 0) {
                     isOwlJump = false;
                 }
             }
             if (!isOwlJump) {
-                --ticksFromStart;
-                if (ticksFromStart == 0) {
+                ticksFromStart += 5;
+                if (maxTicks == ticksFromStart) {
                     isOwlJump = true;
                 }
             }
