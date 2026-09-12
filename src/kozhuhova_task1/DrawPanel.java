@@ -1,0 +1,54 @@
+package kozhuhova_task1;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DrawPanel extends JPanel implements ActionListener {
+    private final int PANEL_WIDTH;
+    private final int PANEL_HEIGHT;
+    private final int TIMER_DELAY;
+    private Timer timer;
+    private int ticksFromStart = 0;
+    private int maxTicks = 1000; ///////////////
+    private boolean isOwlJump = true;
+
+    private Owl owl;
+
+    public DrawPanel(final int width, final int height, final int timerDelay) {
+        this.PANEL_WIDTH = width;
+        this.PANEL_HEIGHT = height;
+        this.TIMER_DELAY = timerDelay;
+        timer = new Timer(timerDelay, this);
+        timer.start();
+
+        this.owl = new Owl(200, 200, 300, 300, Color.MAGENTA, 0);
+    }
+
+    @Override
+    public void paint(final Graphics gr) {
+        super.paint(gr);
+        //owl.setX(ticksFromStart);
+        owl.draw(gr);
+    }
+
+    @Override
+    public void actionPerformed(final ActionEvent e) {
+        if (e.getSource() == timer) {
+            repaint();
+            if (isOwlJump) {
+                ++ticksFromStart;
+                if (maxTicks == ticksFromStart) {
+                    isOwlJump = false;
+                }
+            }
+            if (!isOwlJump) {
+                --ticksFromStart;
+                if (ticksFromStart == 0) {
+                    isOwlJump = true;
+                }
+            }
+        }
+    }
+}
