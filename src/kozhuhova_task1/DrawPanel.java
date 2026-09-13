@@ -30,6 +30,7 @@ public class DrawPanel extends JPanel implements ActionListener {
     public void paint(final Graphics gr) {
         super.paint(gr);
         owl.setY(200 + ticksFromStart);
+        owl.setT(50 - ticksFromStart / 3);
         owl.draw(gr);
     }
 

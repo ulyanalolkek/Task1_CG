@@ -1,6 +1,8 @@
 package kozhuhova_task1;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Path2D;
 
 public class Owl {
     private int x;
@@ -116,9 +118,48 @@ public class Owl {
 
         //брови
         g.setColor(colorDark);
+        makeBrows(this.x, this.y, 30, g, width, height);
+        g.setColor(colorDark);
+        makeBrows(this.x + (int)(width * 0.17), this.y - (int)(height * 0.01), -28, g, width, height);
 
+        //крылья
+        g.setColor(colorMain);
+        makeWing(this.x + (int)(width * 0.03), this.y, t, g, width, height);
+        makeWing(this.x + (int)(width * 0.63), this.y, -t, g, width, height);
 
+    }
+    private static void makeBrows(int x, int y, int a, Graphics2D g, int width, int height) {
+        AffineTransform old = g.getTransform();
+        g.rotate(Math.toRadians(a), x + width * 0.5, y + height * 0.075);
+        g.fillOval(x + width / 3 + (int)(width * 0.1), y + (int)(height * 0.05), (int)(width * 0.1), (int)(height * 0.05));
+        g.setColor(Color.black);
+        g.drawOval(x + width / 3 + (int)(width * 0.1), y + (int)(height * 0.05), (int)(width * 0.1), (int)(height * 0.05));
+        g.setTransform(old);
 
+    }
+    private static void makeWing(int x, int y, int a, Graphics2D g, int width, int height) {
+        Path2D wing1 = new Path2D.Double();
+
+        wing1.moveTo(x + width / 4, y + height / 3);
+
+        wing1.curveTo(
+                x + width / 7, y + (int)(height * 0.45),
+                x + width / 7, y + (int)(height * 0.55),
+                x + width / 4, y + (int)(height * 0.65)
+        );
+
+        wing1.curveTo(
+                x + width / 2.8, y + (int)(height * 0.55),
+                x + width / 2.8, y + (int)(height * 0.45),
+                x + width / 4, y + height / 3
+        );
+
+        wing1.closePath();
+        AffineTransform old = g.getTransform();
+        g.rotate(Math.toRadians(a), x + width/4, y + height/2);
+        g.fill(wing1);
+        g.draw(wing1);
+        g.setTransform(old);
 
     }
 }
