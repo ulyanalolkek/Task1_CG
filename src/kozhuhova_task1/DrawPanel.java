@@ -13,6 +13,7 @@ public class DrawPanel extends JPanel implements ActionListener {
     private int ticksFromStart = 100;
     private int maxTicks = 100;
     private boolean isOwlJump = true;
+    private boolean isJumpRopeInFront = true;
 
     private Owl owl;
 
@@ -23,14 +24,16 @@ public class DrawPanel extends JPanel implements ActionListener {
         timer = new Timer(timerDelay, this);
         timer.start();
 
-        this.owl = new Owl(200, 200, 400, 500, new Color(128, 0, 128), new Color(160, 32, 160), new Color(100, 0, 100), 0);
+        this.owl = new Owl(200, 200, 400, 500, new Color(128, 0, 128), new Color(160, 32, 160), new Color(100, 0, 100), 0, 0, isOwlJump);
     }
 
     @Override
     public void paint(final Graphics gr) {
         super.paint(gr);
         owl.setY(200 + ticksFromStart);
-        owl.setT(50 - ticksFromStart / 3);
+        owl.setAngle(ticksFromStart / 3 + 14);
+        owl.setTick(100 - ticksFromStart);
+        owl.setOwlJump(isOwlJump);
         owl.draw(gr);
     }
 

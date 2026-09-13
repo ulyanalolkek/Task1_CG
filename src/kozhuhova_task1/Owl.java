@@ -2,6 +2,7 @@ package kozhuhova_task1;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Path2D;
 
 public class Owl {
@@ -12,9 +13,12 @@ public class Owl {
     private Color colorMain;
     private Color colorLight;
     private Color colorDark;
-    private int t;
+    private int angle;
+    private int tick;
+    private boolean isOwlJump;
 
-    public Owl(int x, int y, int width, int height, Color colorMain, Color colorLight, Color colorDark, int t) {
+
+    public Owl(int x, int y, int width, int height, Color colorMain, Color colorLight, Color colorDark, int angle, int tick, boolean isOwlJump) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -23,7 +27,9 @@ public class Owl {
         this.colorLight = colorLight;
         this.colorDark = colorDark;
 
-        this.t = t;
+        this.angle = angle;
+        this.tick = tick;
+        this.isOwlJump = isOwlJump;
     }
     public void setX(int x) {
         this.x = x;
@@ -44,14 +50,36 @@ public class Owl {
     public void setColorMain(Color colorMain) {
         this.colorMain = colorMain;
     }
-    public void setT(int t) {
-        this.t = t;
+    public void setAngle(int angle) {
+        this.angle = angle;
+    }
+    public void setTick(int tick) {
+        this.tick = tick;
+    }
+    public void setOwlJump(boolean isOwlJump) {
+        this.isOwlJump = isOwlJump;
     }
     void draw(Graphics gr) {
-        this.y += this.t;
         Graphics2D g = (Graphics2D) gr;
         // ноги
         // по н +t и пусть разъезжаются
+        if (!isOwlJump) {
+            // скакалка
+            g.setColor(new Color(210, 105, 30));
+            makeRollingPin(
+                    (int)(this.x + (int)(width * 0.03) + width / 4.0
+                            - ((int)(height * 0.65) - height / 2.0) * Math.sin(Math.toRadians(angle))),
+                    (int)(this.y + height / 2.0
+                            + ((int)(height * 0.65) - height / 2.0) * Math.cos(Math.toRadians(angle))),
+
+                    (int)(this.x + (int)(width * 0.63) + width / 4.0
+                            + ((int)(height * 0.65) - height / 2.0) * Math.sin(Math.toRadians(angle))),
+                    (int)(this.y + height / 2.0
+                            + ((int)(height * 0.65) - height / 2.0) * Math.cos(Math.toRadians(angle))),
+                    tick * 0.01, g, width, (int)(height * 1.3) , this.x ,this.y - (int)(height * 0.4));
+
+
+        }
         g.setColor(this.colorMain);
         g.fillOval(this.x + width / 3 + width / 8, this.y + (int)(height * 0.55), (int)(width * 0.1), (int)(height * 0.15));
         g.setColor(Color.BLACK);
@@ -124,8 +152,33 @@ public class Owl {
 
         //крылья
         g.setColor(colorMain);
-        makeWing(this.x + (int)(width * 0.03), this.y, t, g, width, height);
-        makeWing(this.x + (int)(width * 0.63), this.y, -t, g, width, height);
+        makeWing(this.x + (int)(width * 0.03), this.y, angle, g, width, height);
+        makeWing(this.x + (int)(width * 0.63), this.y, -angle, g, width, height);
+        if (isOwlJump) {
+            // скакалка
+            g.setColor(new Color(210, 105, 30));
+            makeRollingPin(
+                    (int) (this.x + (int) (width * 0.03) + width / 4.0
+                            - ((int) (height * 0.65) - height / 2.0) * Math.sin(Math.toRadians(angle))),
+                    (int) (this.y + height / 2.0
+                            + ((int) (height * 0.65) - height / 2.0) * Math.cos(Math.toRadians(angle))),
+
+                    (int) (this.x + (int) (width * 0.63) + width / 4.0
+                            + ((int) (height * 0.65) - height / 2.0) * Math.sin(Math.toRadians(angle))),
+                    (int) (this.y + height / 2.0
+                            + ((int) (height * 0.65) - height / 2.0) * Math.cos(Math.toRadians(angle))),
+                    tick * 0.01, g, width, (int) (height * 1.3), this.x, this.y - (int) (height * 0.4));
+        }
+    }
+    private static void makeRollingPin(int x1, int y1, int x2, int y2, double t, Graphics2D g, int width, int height, int x, int y) {
+        CubicCurve2D rp = new CubicCurve2D.Double();
+        rp.setCurve(
+                x1, y1,
+                x1 + (int)(width * 0.1), y + (int)(height * t),
+                x2 - (int)(width * 0.1), y + (int)(height * t),
+                x2, y2
+        );
+        g.draw(rp);
 
     }
     private static void makeBrows(int x, int y, int a, Graphics2D g, int width, int height) {
