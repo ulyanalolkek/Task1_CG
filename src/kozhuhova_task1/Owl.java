@@ -170,7 +170,8 @@ public class Owl {
                     tick * 0.01, g, width, (int) (height * 1.3), this.x, this.y - (int) (height * 0.4));
         }
     }
-    private static void makeRollingPin(int x1, int y1, int x2, int y2, double t, Graphics2D g, int width, int height, int x, int y) {
+    private static void makeRollingPin(int x1, int y1, int x2, int y2, double t, Graphics gr, int width, int height, int x, int y) {
+        Graphics2D g = (Graphics2D) gr;
         CubicCurve2D rp = new CubicCurve2D.Double();
         rp.setCurve(
                 x1, y1,
@@ -181,7 +182,8 @@ public class Owl {
         g.draw(rp);
 
     }
-    private static void makeBrows(int x, int y, int a, Graphics2D g, int width, int height) {
+    private static void makeBrows(int x, int y, int a, Graphics gr, int width, int height) {
+        Graphics2D g = (Graphics2D) gr;
         AffineTransform old = g.getTransform();
         g.rotate(Math.toRadians(a), x + width * 0.5, y + height * 0.075);
         g.fillOval(x + width / 3 + (int)(width * 0.1), y + (int)(height * 0.05), (int)(width * 0.1), (int)(height * 0.05));
@@ -190,7 +192,8 @@ public class Owl {
         g.setTransform(old);
 
     }
-    private static void makeWing(int x, int y, int a, Graphics2D g, int width, int height) {
+    private static void makeWing(int x, int y, int a, Graphics gr, int width, int height) {
+        Graphics2D g = (Graphics2D) gr;
         Path2D wing1 = new Path2D.Double();
 
         wing1.moveTo(x + width / 4, y + height / 3);
