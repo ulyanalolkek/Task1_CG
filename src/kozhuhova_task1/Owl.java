@@ -100,8 +100,49 @@ public class Owl {
         g.setColor(Color.BLACK);
         g.drawOval(this.x + width / 3 + width / 12, this.y + height / 6, width / 3, (int)(height * 0.4));
 
+        g.setColor(this.colorMain);
+        g.setStroke(new BasicStroke(2.5f));
+        g.drawLine(this.x + (int)(width * 0.43), this.y + (int)(height * 0.34), this.x + (int)(width * 0.46), this.y + (int)(height * 0.38));
+        g.drawLine(this.x + (int)(width * 0.49), this.y + (int)(height * 0.34), this.x + (int)(width * 0.46), this.y + (int)(height * 0.38));
+        g.drawLine(this.x + (int)(width * 0.55), this.y + (int)(height * 0.34), this.x + (int)(width * 0.58), this.y + (int)(height * 0.38));
+        g.drawLine(this.x + (int)(width * 0.61), this.y + (int)(height * 0.34), this.x + (int)(width * 0.58), this.y + (int)(height * 0.38));
+        g.drawLine(this.x + (int)(width * 0.67), this.y + (int)(height * 0.34), this.x + (int)(width * 0.7), this.y + (int)(height * 0.38));
+        g.drawLine(this.x + (int)(width * 0.73), this.y + (int)(height * 0.34), this.x + (int)(width * 0.7), this.y + (int)(height * 0.38));
+
+
+        g.drawLine(this.x + (int)(width * 0.49), this.y + (int)(height * 0.44), this.x + (int)(width * 0.52), this.y + (int)(height * 0.48));
+        g.drawLine(this.x + (int)(width * 0.55), this.y + (int)(height * 0.44), this.x + (int)(width * 0.52), this.y + (int)(height * 0.48));
+        g.drawLine(this.x + (int)(width * 0.61), this.y + (int)(height * 0.44), this.x + (int)(width * 0.64), this.y + (int)(height * 0.48));
+        g.drawLine(this.x + (int)(width * 0.67), this.y + (int)(height * 0.44), this.x + (int)(width * 0.64), this.y + (int)(height * 0.48));
+
+        g.setStroke(new BasicStroke(1f));
+
         //голова
         g.setColor(this.colorMain);
+        int[] x1 = {
+                this.x + width / 3 + (int)(width * 0.05),
+                this.x + width / 3 + (int)(width * 0.20),
+                this.x + width / 3 + (int)(width * 0.125)
+        };
+        int[] y1 = {
+                this.y + (int)(height * 0.07),
+                this.y + (int)(height * 0.07),
+                this.y - (int)(height * 0.05)
+        };
+        g.fillPolygon(x1, y1, 3);
+        g.drawPolygon(x1, y1, 3);
+        int[] x2 = {
+                this.x + width / 3 + (int)(width * 0.30),
+                this.x + width / 3 + (int)(width * 0.45),
+                this.x + width / 3 + (int)(width * 0.375)
+        };
+        int[] y2 = {
+                this.y + (int)(height * 0.07),
+                this.y + (int)(height * 0.07),
+                this.y - (int)(height * 0.05)
+        };
+        g.fillPolygon(x2, y2, 3);
+        g.drawPolygon(x2, y2, 3);
         g.fillOval(this.x + width / 3, this.y, width / 2, height / 3);
         g.setColor(Color.BLACK);
         g.drawOval(this.x + width / 3, this.y , width / 2, height / 3);
@@ -125,9 +166,9 @@ public class Owl {
         g.fillOval(this.x + width / 3 + (int)(width * 0.1), this.y + (int)(height * 0.1), (int)(width * 0.13), (int)(width * 0.13));
         g.fillOval(this.x + width / 3 + width / 4 , this.y + (int)(height * 0.1), (int)(width * 0.13), (int)(width * 0.13));
         // блики
-        g.setColor(Color.WHITE);
+        /*g.setColor(Color.WHITE);
         g.fillOval(this.x + width / 3 + (int)(width * 0.12), this.y + (int)(height * 0.11), (int)(width * 0.04), (int)(width * 0.04));
-        g.fillOval(this.x + width / 3 + width / 4 + (int)(width * 0.02) , this.y + (int)(height * 0.11), (int)(width * 0.04), (int)(width * 0.04));
+        g.fillOval(this.x + width / 3 + width / 4 + (int)(width * 0.02) , this.y + (int)(height * 0.11), (int)(width * 0.04), (int)(width * 0.04));*/
         //клюв
         g.setColor(new Color(240, 160, 60));
         int[] x = {this.x + width * 7 / 12 - (int)(width * 0.05), this.x + width * 7 / 12 + (int)(width * 0.05), this.x + width * 7 / 12};

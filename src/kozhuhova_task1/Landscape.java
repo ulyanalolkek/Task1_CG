@@ -44,10 +44,11 @@ public class Landscape {
 
         drawSun(gr, tick);
         drawClouds(t, g);
-
+        g.setColor(new Color(3, 60, 3));
+        g.fillRect(0, 450, 1000, 300);
         drawEarth(300, height, width, (int)(height * 0.55), g , new Color(0, 80, 0));
-        drawEarth(-200, height, width, (int)(height * 0.5), g , new Color(0, 100, 0));
-        drawEarth(0, height, width, (int)(height * 0.3), g, new Color(70, 134, 70));
+        drawEarth(-200, height, width, (int)(height * 0.5), g , new Color(10, 100, 10));
+        drawEarth(0, height, width, (int)(height * 0.3), g, new Color(74, 122, 61));
 
         drawTrees(g);
 
@@ -94,7 +95,7 @@ public class Landscape {
             listCloud.add(new Cloud(300, 60, 20, 4));
             listCloud.add(new Cloud(700, 25, 60, 3));
         }
-        if (listCloud.size() <= 4) {
+        if (listCloud.size() <= 5) {
             listCloud.add(new Cloud(random.nextInt(101) - 150, random.nextInt(100) + 20, random.nextInt(70) + 50, random.nextInt(3) + 3));
         }
         List<Cloud> toRemove = new ArrayList<>();
@@ -112,7 +113,7 @@ public class Landscape {
     }
     private void drawCloud(int x, int y, Graphics gr, int size) {
         Graphics2D g = (Graphics2D) gr;
-        g.setColor(Color.WHITE);
+        g.setColor(new Color(255, 255, 255, 218));
         g.fillOval(x, y - (int)(size * 0.15), (int)(size * 0.8), (int)(size * 0.5));
         g.fillOval(x + (int)(size * 0.3), y + (int)(size * 0.15), (int)(size * 0.7), (int)(size * 0.4));
         g.fillOval(x + (int)(size * 0.4), y - (int)(size * 0.2), (int)(size * 0.9), (int)(size * 0.5));
@@ -155,8 +156,23 @@ public class Landscape {
         g.fillRect(x, y - (int)(size * 0.1), (int)(size * 0.1), (int)(size * 0.1));
         g.setColor(green);
         g.fillPolygon(new int[]{x - (int)(size * 0.3), x + (int)(size * 0.4), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.1), y - (int)(size * 0.1), y - (int)(size * 0.4)}, 3);
-        g.fillPolygon(new int[]{x - (int)(size * 0.2), x + (int)(size * 0.3), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.4), y - (int)(size * 0.4), y - (int)(size * 0.65)}, 3);
-        g.fillPolygon(new int[]{x - (int)(size * 0.1), x + (int)(size * 0.2), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.65), y - (int)(size * 0.65), y - (int)(size * 0.8)}, 3);
+        g.fillPolygon(new int[]{x - (int)(size * 0.2), x + (int)(size * 0.3), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.35), y - (int)(size * 0.35), y - (int)(size * 0.6)}, 3);
+        g.fillPolygon(new int[]{x - (int)(size * 0.1), x + (int)(size * 0.2), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.55), y - (int)(size * 0.55), y - (int)(size * 0.7)}, 3);
+        g.setColor(new Color(53, 36, 24, 253));
+        g.drawLine(x + (int)(size * 0.01), y - (int)(size * 0.09), x + (int)(size * 0.01), y - (int)(size * 0.02));
+        g.drawLine(x + (int)(size * 0.02), y - (int)(size * 0.1), x + (int)(size * 0.02), y - (int)(size * 0.07));
+        g.drawLine(x + (int)(size * 0.02), y - (int)(size * 0.06), x + (int)(size * 0.02), y - (int)(size * 0.01));
+        g.drawLine(x + (int)(size * 0.035), y - (int)(size * 0.09), x + (int)(size * 0.035), y - (int)(size * 0.05));
+        g.drawLine(x + (int)(size * 0.035), y - (int)(size * 0.04), x + (int)(size * 0.035), y - (int)(size * 0.01));
+        g.drawLine(x + (int)(size * 0.05), y - (int)(size * 0.09), x + (int)(size * 0.05), y - (int)(size * 0.03));
+        g.drawLine(x + (int)(size * 0.06), y - (int)(size * 0.10), x + (int)(size * 0.06), y - (int)(size * 0.07));
+        g.drawLine(x + (int)(size * 0.06), y - (int)(size * 0.06), x + (int)(size * 0.06), y - (int)(size * 0.05));
+        g.drawLine(x + (int)(size * 0.06), y - (int)(size * 0.04), x + (int)(size * 0.06), y - (int)(size * 0.01));
+        g.drawLine(x + (int)(size * 0.075), y - (int)(size * 0.09), x + (int)(size * 0.075), y - (int)(size * 0.05));
+        g.drawLine(x + (int)(size * 0.075), y - (int)(size * 0.04), x + (int)(size * 0.075), y - (int)(size * 0.01));
+        g.drawLine(x + (int)(size * 0.09), y - (int)(size * 0.09), x + (int)(size * 0.09), y - (int)(size * 0.03));
+        g.drawLine(x + (int)(size * 0.09), y - (int)(size * 0.023), x + (int)(size * 0.09), y - (int)(size * 0.01));
+
     }
 
 }
