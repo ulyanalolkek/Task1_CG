@@ -15,12 +15,19 @@ public class Landscape {
     private int t;
     private int tick = 0;
     private List<Cloud> listCloud = new ArrayList<Cloud>();
+    private List<ChristmasTree> listCT = new ArrayList<>();
+    private List<OrdinaryTree> listOT = new ArrayList<>();
+    private Sun s;
     public Landscape(int x, int y, int t, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
         this.t = t;
+
+        s = new Sun(0, 0, 0);
+        generateClouds();
+
     }
     public void setX(int x) {
         this.x = x;
@@ -42,15 +49,18 @@ public class Landscape {
         g.setColor(new Color(150, 240, 255));
         g.fillRect(0, 0, width, height);
 
-        drawSun(gr, tick);
-        drawClouds(t, g);
+        s.draw(g);
+        generateClouds();
+        for(Cloud cl : listCloud) {
+            cl.draw(g);
+        }
         g.setColor(new Color(3, 60, 3));
         g.fillRect(0, 450, 1000, 300);
         drawEarth(300, height, width, (int)(height * 0.55), g , new Color(0, 80, 0));
         drawEarth(-200, height, width, (int)(height * 0.5), g , new Color(10, 100, 10));
         drawEarth(0, height, width, (int)(height * 0.3), g, new Color(74, 122, 61));
 
-        drawTrees(g);
+        generateTrees(g);
 
     }
     private void drawEarth(int x, int y, int width, int height, Graphics gr, Color color) {
@@ -65,30 +75,8 @@ public class Landscape {
         g.fill(earth);
         g.draw(earth);
     }
-    private void drawSun(Graphics gr, int tick) {
-        this.tick++;
-        Graphics2D g = (Graphics2D) gr;
-        g.setColor(Color.yellow);
-        g.fillOval(35, 35, 60, 60);
-        AffineTransform old = g.getTransform();
-        g.rotate(Math.toRadians(tick), 65, 65);
-        g.drawLine(65, 31, 65, 10);
-        g.drawLine(82, 36, 94, 22);
-        g.drawLine(94, 48, 108, 42);
-        g.drawLine(99, 65, 120, 65);
-        g.drawLine(94, 82, 106, 94);
-        g.drawLine(82, 94, 90, 112);
-        g.drawLine(65, 99, 65, 118);
-        g.drawLine(48, 94, 38, 104);
-        g.drawLine(36, 82, 20, 92);
-        g.drawLine(31, 65, 12, 65);
-        g.drawLine(36, 48, 24, 36);
-        g.drawLine(48, 36, 42, 18);
-        g.setTransform(old);
 
-
-    }
-    private void drawClouds(int t, Graphics gr) {
+    private void generateClouds() {
         Random random = new Random();
         if (listCloud.isEmpty()) {
             listCloud.add(new Cloud(100, 50, 40, 5));
@@ -105,73 +93,32 @@ public class Landscape {
                 toRemove.add(cl);
                 continue;
             }
-            drawCloud(cl.getX(), cl.getY(), gr, cl.getSize());
         }
         for (Cloud cl : toRemove) {
             listCloud.remove(cl);
         }
     }
-    private void drawCloud(int x, int y, Graphics gr, int size) {
-        Graphics2D g = (Graphics2D) gr;
-        g.setColor(new Color(255, 255, 255, 218));
-        g.fillOval(x, y - (int)(size * 0.15), (int)(size * 0.8), (int)(size * 0.5));
-        g.fillOval(x + (int)(size * 0.3), y + (int)(size * 0.15), (int)(size * 0.7), (int)(size * 0.4));
-        g.fillOval(x + (int)(size * 0.4), y - (int)(size * 0.2), (int)(size * 0.9), (int)(size * 0.5));
-    }
-    private void drawTrees(Graphics gr) {
-        drawOrdinaryTree(750, 460, 300, gr,new Color(0, 40, 0), new Color(110, 63, 0));
-        drawChristmasTree(600, 495, 400, gr, new Color(0, 35, 0), new Color(100, 53, 0));
-        drawChristmasTree(910, 480, 350, gr, new Color(0, 30, 0), new Color(90, 50, 0));
+    private void generateTrees(Graphics2D gr) {
+        new OrdinaryTree(750, 460, 300, new Color(0, 40, 0), new Color(110, 63, 0)).draw(gr);
+        new ChristmasTree(600, 495, 400, new Color(0, 35, 0), new Color(100, 53, 0)).draw(gr);
+        new ChristmasTree(910, 480, 350, new Color(0, 30, 0), new Color(90, 50, 0)).draw(gr);
 
-        drawOrdinaryTree(800, 500, 200, gr,new Color(0, 60, 0), new Color(110, 63, 0));
-        drawChristmasTree(900, 540, 200, gr, new Color(0, 55, 0), new Color(100, 63, 0));
-        drawChristmasTree(700, 580, 260, gr, new Color(0, 67, 0), new Color(100, 63, 0));
+        new OrdinaryTree(800, 500, 200, new Color(0, 60, 0), new Color(110, 63, 0)).draw(gr);
+        new ChristmasTree(900, 540, 200, new Color(0, 55, 0), new Color(100, 63, 0)).draw(gr);
+        new ChristmasTree(700, 580, 260,  new Color(0, 67, 0), new Color(100, 63, 0)).draw(gr);
 
 
-        drawChristmasTree(80, 540, 320, gr, new Color(0, 55, 0), new Color(100, 53, 0));
-        drawChristmasTree(250, 500, 270, gr, new Color(0, 40, 0), new Color(90, 50, 0));
-        drawOrdinaryTree(500, 540, 300, gr,new Color(0, 60, 0), new Color(110, 63, 0));
-        drawOrdinaryTree(830, 640, 200, gr, new Color(0, 70, 0), new Color(100, 63, 0));
+        new ChristmasTree(80, 540, 320,  new Color(0, 55, 0), new Color(100, 53, 0)).draw(gr);
+        new ChristmasTree(250, 500, 270,  new Color(0, 40, 0), new Color(90, 50, 0)).draw(gr);
+        new OrdinaryTree(500, 540, 300, new Color(0, 60, 0), new Color(110, 63, 0)).draw(gr);
+        new OrdinaryTree(830, 640, 200,  new Color(0, 70, 0), new Color(100, 63, 0)).draw(gr);
 
-        drawChristmasTree(-10, 600, 450, gr, new Color(0, 40, 0), new Color(90, 60, 0));
+        new ChristmasTree(-10, 600, 450,  new Color(0, 40, 0), new Color(90, 60, 0)).draw(gr);
 
-        drawOrdinaryTree(80, 650, 300, gr,new Color(0, 60, 0), new Color(110, 63, 0));
+        new OrdinaryTree(80, 650, 300, new Color(0, 60, 0), new Color(110, 63, 0)).draw(gr);
 
 
-        drawChristmasTree(280, 650, 720, gr, new Color(0, 70, 0), new Color(110, 73, 0));
-
-    }
-    private void drawOrdinaryTree(int x, int y, int size, Graphics gr, Color green,  Color brown) {
-        Graphics2D g = (Graphics2D) gr;
-        g.setColor(brown);
-        g.fillRect(x + (int)(size * 0.05), y - (int)(size * 0.8), (int)(size * 0.05), (int)(size * 0.8));
-        g.setColor(green);
-        g.fillOval(x - (int)(size * 0.15), y - size, (int)(size * 0.3), (int)(size * 0.3));
-        g.fillOval(x - (int)(size * 0.3), y - (int)(size * 0.8), (int)(size * 0.45), (int)(size * 0.45));
-        g.fillOval(x + (int)(size * 0.05), y - (int)(size * 0.85), (int)(size * 0.4), (int)(size * 0.4));
-    }
-    private void drawChristmasTree(int x, int y, int size, Graphics gr, Color green,  Color brown) {
-        Graphics2D g = (Graphics2D) gr;
-        g.setColor(brown);
-        g.fillRect(x, y - (int)(size * 0.1), (int)(size * 0.1), (int)(size * 0.1));
-        g.setColor(green);
-        g.fillPolygon(new int[]{x - (int)(size * 0.3), x + (int)(size * 0.4), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.1), y - (int)(size * 0.1), y - (int)(size * 0.4)}, 3);
-        g.fillPolygon(new int[]{x - (int)(size * 0.2), x + (int)(size * 0.3), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.35), y - (int)(size * 0.35), y - (int)(size * 0.6)}, 3);
-        g.fillPolygon(new int[]{x - (int)(size * 0.1), x + (int)(size * 0.2), x + (int)(size * 0.05)}, new int[]{y - (int)(size * 0.55), y - (int)(size * 0.55), y - (int)(size * 0.7)}, 3);
-        g.setColor(new Color(53, 36, 24, 253));
-        g.drawLine(x + (int)(size * 0.01), y - (int)(size * 0.09), x + (int)(size * 0.01), y - (int)(size * 0.02));
-        g.drawLine(x + (int)(size * 0.02), y - (int)(size * 0.1), x + (int)(size * 0.02), y - (int)(size * 0.07));
-        g.drawLine(x + (int)(size * 0.02), y - (int)(size * 0.06), x + (int)(size * 0.02), y - (int)(size * 0.01));
-        g.drawLine(x + (int)(size * 0.035), y - (int)(size * 0.09), x + (int)(size * 0.035), y - (int)(size * 0.05));
-        g.drawLine(x + (int)(size * 0.035), y - (int)(size * 0.04), x + (int)(size * 0.035), y - (int)(size * 0.01));
-        g.drawLine(x + (int)(size * 0.05), y - (int)(size * 0.09), x + (int)(size * 0.05), y - (int)(size * 0.03));
-        g.drawLine(x + (int)(size * 0.06), y - (int)(size * 0.10), x + (int)(size * 0.06), y - (int)(size * 0.07));
-        g.drawLine(x + (int)(size * 0.06), y - (int)(size * 0.06), x + (int)(size * 0.06), y - (int)(size * 0.05));
-        g.drawLine(x + (int)(size * 0.06), y - (int)(size * 0.04), x + (int)(size * 0.06), y - (int)(size * 0.01));
-        g.drawLine(x + (int)(size * 0.075), y - (int)(size * 0.09), x + (int)(size * 0.075), y - (int)(size * 0.05));
-        g.drawLine(x + (int)(size * 0.075), y - (int)(size * 0.04), x + (int)(size * 0.075), y - (int)(size * 0.01));
-        g.drawLine(x + (int)(size * 0.09), y - (int)(size * 0.09), x + (int)(size * 0.09), y - (int)(size * 0.03));
-        g.drawLine(x + (int)(size * 0.09), y - (int)(size * 0.023), x + (int)(size * 0.09), y - (int)(size * 0.01));
+        new ChristmasTree(280, 650, 720,  new Color(0, 70, 0), new Color(110, 73, 0)).draw(gr);
 
     }
 
