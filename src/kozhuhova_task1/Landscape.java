@@ -29,6 +29,15 @@ public class Landscape {
         generateClouds();
 
     }
+    public int getWidth() {
+        return width;
+    }
+    public int getHeight() {
+        return height;
+    }
+    public List<Cloud> getClouds() {
+        return listCloud;
+    }
     public void setX(int x) {
         this.x = x;
     }
@@ -50,6 +59,7 @@ public class Landscape {
         g.fillRect(0, 0, width, height);
 
         s.draw(g);
+        s.setTick(s.getTick()+1);
         generateClouds();
         for(Cloud cl : listCloud) {
             cl.draw(g);

@@ -31,6 +31,34 @@ public class Owl {
         this.tick = tick;
         this.isOwlJump = isOwlJump;
     }
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getAngle() {
+        return angle;
+    }
+
+    public int getTick() {
+        return tick;
+    }
+
+    public boolean isOwlJump() {
+        return isOwlJump;
+    }
+
     public void setX(int x) {
         this.x = x;
     }

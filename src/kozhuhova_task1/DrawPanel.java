@@ -29,6 +29,17 @@ public class DrawPanel extends JPanel implements ActionListener {
         this.owl = new Owl(200, 200, 400, 500, new Color(128, 0, 128), new Color(160, 32, 160), new Color(100, 0, 100), 0, 0, isOwlJump);
         this.landscape = new Landscape(0, 0, ticksFromStart, 1000, 750);
     }
+    public Owl getOwl() {
+        return owl;
+    }
+
+    public Landscape getLandscape() {
+        return landscape;
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
 
     @Override
     public void paint(final Graphics gr) {
